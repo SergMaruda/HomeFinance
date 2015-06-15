@@ -1,0 +1,22 @@
+
+//body
+//{
+//font-size:200%;
+/} 
+table, th, td 
+   {
+  border: 1px solid black;
+  }
+
+td.alt
+   {
+  padding: 2px;
+  color: #000000;
+  background-color: #EAF2D3;
+  }
+
+tr.alt td 
+  {
+ color: #000000;
+ background-color: #EAF2D3;
+ }
