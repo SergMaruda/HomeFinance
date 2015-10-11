@@ -1,6 +1,80 @@
-<?php
+<html>
+<head> 
+<meta charset="utf-8">
+<title>Управление транзакциями</title> 
 
-include 'header.php';
+ <head>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+
+</style>
+</head>
+<body>
+
+<style>
+  .layer1, select
+  {
+  background: #EAF2D3;
+  border: 1px solid black;
+  padding: 5px;
+  }
+  
+  .label
+  {
+  float: left;
+  width: 70px;
+  }
+  
+  .row
+  {
+  clear:left;
+  }
+  
+  .element
+  {
+  width: 500px;
+  }
+  
+input[type=text] 
+{
+	padding:5px; border:2px solid #ccc; 
+	webkit-border-radius: 5px;
+	border-radius: 5px;
+	float: left;
+}
+
+input[type=text]:focus 
+	{
+	border-color:#333; 
+	}
+
+input[type=submit] 
+{
+float: left;
+}
+
+  .flt_left
+  {
+  float: left;
+  }
+
+	
+  </style>
+
+</head>
+<body>
+
+  <div >
+    <a class="layer1" href="manage_transactions.php">Manage transaction</a>
+    <a class="layer1" href="/HomeFinance">View transaction</a>
+    <a class="layer1" href="accounts_status_by_currency_table.php">Accounts state by currency</a>
+  	<a class="layer1" href="accounts_status_table.php">Accounts status</a>
+	<a class="layer1" href="progress.php">Progress</a>
+  </div>
+  <br>
+
+
+<?php
 
 // Load the main class
 require_once 'HTML/QuickForm2.php';
@@ -27,6 +101,9 @@ function getGUID(){
 
 // Instantiate the HTML_QuickForm2 object
 $form = new HTML_QuickForm2('tutorial');
+
+// Set defaults for the form elements
+//$form->addDataSource(new HTML_QuickForm2_DataSource_Array(array('name' => 'Joe User')));
 
 // Add some elements to the form
 $fieldset = $form->addElement('fieldset')->setLabel('Add new transaction');
@@ -68,6 +145,10 @@ $amount = $fieldset->addElement('text', 'amount', array('class' => 'layer1', 'si
 
 $fieldset->addElement('submit', null, array('value' => 'Add'));
 
+// Define filters and validation rules
+//$amount->addFilter('trim');
+//$amount->addRule('required', 'Please enter desired amount');
+
 $form_delete = new HTML_QuickForm2('form_delete_transaction');
 $fieldset_form_delete = $form_delete->addElement('fieldset')->setLabel('Enter transaction ID to delete');
 $tr_id = $fieldset_form_delete->addElement('text', 'tr_id', array('class' => 'layer1', 'size' => 50, 'maxlength' => 200));
@@ -80,14 +161,14 @@ $fieldset_form_delete->addElement('submit', null, array('value' => 'Delete'));
 	$fieldset_form_wget->addElement('submit', null, array('value' => 'DownLoad'));
 	
 	{
-    echo "<br>"."<a href=downloaded/downloaded".">DownLoadedFiles</a>";
+    echo "<br>"."<a href=/downloaded".">DownLoadedFiles</a>";
 	}
 	
 	if ($form_run_wget->validate()) 
 	  {
 	  $down_link_text = $_POST["down_link"];
 	  $fn_name = getGUID().".txt";
-	  $down_cmd = "wget -P /mnt/sda1/Videos/downloaded ".$down_link_text.">/dev/null 2>/mnt/sda1/www/HomeFinance/downloaded/progress/".$fn_name." &";
+	  $down_cmd = "wget -P /mnt/sda1/Videos/downloaded ".$down_link_text." 2>/mnt/sda1/www/HomeFinance/downloaded/progress".$fn_name." &";
 	  echo "<br>".$down_cmd."<br>";
       exec($down_cmd);
 	  }
