@@ -60,6 +60,11 @@ echo
   {
   width: 500px;
   }
+
+   td.alt 
+   {
+        background-color: #C0FFC0;
+    }
   
 input[type=text] 
 {
