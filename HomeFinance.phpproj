@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,8 +15,11 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="header.php" />
+    <Compile Include="index.php" />
     <Compile Include="Net\Socket.php" />
     <Compile Include="Net\SMTP.php" />
+    <Compile Include="progress.php" />
     <Compile Include="tests\13659.phpt" />
     <Compile Include="tests\smtp_error.phpt" />
     <Compile Include="tests\validateQuotedString.php" />
@@ -408,13 +412,12 @@
     <Compile Include="HTML\QuickForm2.php" />
     <Compile Include="HTML\Common2.php" />
     <Compile Include="Table.php" />
-    <Compile Include="transactions_view.php" />
     <Compile Include="test.php" />
     <Compile Include="accounts_status_by_currency.php" />
     <Compile Include="template.spec" />
     <Compile Include="transactions.php" />
     <Compile Include="Expences.db" />
-    <Compile Include="index.html" />
+    <Compile Include="index1.html" />
     <Compile Include="mystyle.css" />
     <Compile Include="transactions2.php" />
     <Compile Include="System.php" />
@@ -422,7 +425,6 @@
     <Compile Include="transactionsview.php" />
     <Compile Include="accounts_status_by_currency_table.php" />
     <Compile Include="PEAR5.php" />
-    <Compile Include="hello.php" />
     <Compile Include="PEAR.php" />
     <Compile Include="README" />
     <Compile Include="accounts_status.php" />

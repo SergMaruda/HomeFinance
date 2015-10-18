@@ -99,8 +99,9 @@ float: left;
     <a class="layer1" href="manage_transactions.php">Manage transaction</a>
     <a class="layer1" href="/HomeFinance">View transaction</a>
     <a class="layer1" href="accounts_status_by_currency_table.php">Accounts state by currency</a>
-  	<a class="layer1" href="accounts_status_table.php">Accounts status</a>
-	<a class="layer1" href="progress.php">Progress</a>
+    <a class="layer1" href="accounts_status_table.php">Accounts status</a>
+    <a class="layer1" href="progress.php">Progress</a>
+    <a class="layer1" href="upload.html">Upload File</a>
   </div>
   <br>';
 ?>
