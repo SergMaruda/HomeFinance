@@ -1,5 +1,7 @@
 <?php
 
+require('auth.php');
+
 
 echo 
 '<html>
@@ -9,6 +11,7 @@ echo
 
  <head>
 <link rel="stylesheet" type="text/css" href="mystyle.css">
+<script src="jquery-2.1.4.min.js"></script>
 </head>
 
 </style>
@@ -68,10 +71,9 @@ echo
   
 input[type=text] 
 {
-	padding:5px; border:2px solid #ccc; 
-	webkit-border-radius: 5px;
+	padding:5px; border:2px solid #ccc;
+webkit-border-radius: 5px;
 	border-radius: 5px;
-	float: left;
 }
 
 input[type=text]:focus 

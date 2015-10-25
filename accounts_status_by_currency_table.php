@@ -1,11 +1,7 @@
-
 <?php 
-include 'header.php';
 
+require 'header.php';
 include 'accounts_status_by_currency.php';
 
+echo '</body></html>';
 ?>
-  
-
-</body>
-</html> 

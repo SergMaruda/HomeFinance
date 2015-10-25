@@ -1,7 +1,50 @@
 <?php
 
 include 'header.php';
+?>
 
+<script type="text/javascript">
+
+    function myFunction() {
+        var acc_to = $("#account_to-0");
+        acc_to.empty();
+
+        var acc_from = $("#account_from-0");
+
+        var selected = $("#account_from-0 option:selected").text();
+
+        console.log(selected);
+        var is_usd = selected.indexOf("USD") != -1;
+        var is_uah = selected.indexOf("UAH") != -1;
+        var is_eur = selected.indexOf("EUR") != -1;
+
+        var currency = selected.substr(selected.length - 3);
+
+
+        $("#account_from-0 option").each(function (e) {
+            var text = $(this).text();
+            var has_curr = text.indexOf(currency) != -1;
+
+            if (has_curr) {
+                acc_to.append($('<option></option>').val($(this).val()).html($(this).text()));
+            }
+        });
+
+    }
+
+    $(document).ready(function () {
+
+        myFunction();
+        $("#account_from-0").change(function (e) {
+            myFunction();
+        });
+
+    });
+
+</script>
+
+
+<?php
 // Load the main class
 require_once 'HTML/QuickForm2.php';
 require_once 'HTML/QuickForm2/Element/Select.php';
@@ -171,8 +214,6 @@ if ($form_transfer->validate())
   }  
 
 echo $form.$form_delete.$form_transfer.$form_transfer_file.$form_run_wget;
+echo '</body></html>';
 
 ?>
-
-</body>
-</html>

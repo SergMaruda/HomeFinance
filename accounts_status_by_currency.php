@@ -1,6 +1,8 @@
 <?php
 require_once "Table.php";
- 
+
+include('auth.php');
+
 $db = new SQLite3("Expences.db");
 if (!$db) exit("db creation failed!"); 
 
