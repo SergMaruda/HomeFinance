@@ -5,7 +5,15 @@ require_once "Table.php";
 $db = new SQLite3("Expences.db");
 if (!$db) exit("db creation failed!"); 
 
-$result = $db->query('SELECT * FROM TRANSACTIONS_VIEW');
+$account_id = $_GET["account_id"];
+
+$appendix = "";
+if($account_id != NULL)
+{
+$appendix = " WHERE ACC_ID==".$account_id;
+}
+
+$result = $db->query('SELECT * FROM TRANSACTIONS_VIEW'.$appendix);
 
 $table = new HTML_Table();
 
@@ -15,7 +23,7 @@ while ($row = $result->fetchArray(SQLITE3_NUM))
   {
   $cnt = count($row);
 
-  for($cols = 0; $cols < $cnt; $cols++)
+  for($cols = 0; $cols < $cnt - 1; $cols++)
     {
 	$curr_row = $row[$cols];
     $table->setCellContents($row_num, $cols, $curr_row);
