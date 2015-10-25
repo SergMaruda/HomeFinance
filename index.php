@@ -7,7 +7,7 @@ include('header.php');
   include('accounts_status.php');
   ?>
 </div >
-  
+ 
 <div >
   <?php
   include('accounts_status_by_currency.php');
@@ -19,5 +19,6 @@ include('header.php');
   include('transactions.php');
   ?>
 </div >
+
 </body>
 </html>
