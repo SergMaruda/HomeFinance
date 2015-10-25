@@ -1,3 +1,25 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("sss");
+
+        $('a').click(function () {
+            console.log("sdsdsdsd");
+
+            if ($(this).text() == "X") {
+                if (confirm('Are you sure you want to delete account?')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+    });
+
+</script>
+
+
 <?php
 require_once "Table.php";
 
