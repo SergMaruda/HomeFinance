@@ -79,7 +79,7 @@ $fieldset = $form->addElement('fieldset')->setLabel('Add new transaction');
 $select_account = $fieldset->addElement('select', 'account', array('class' => 'layer1'))->setLabel('Select account:');
 
 $input_props = array('class' => 'layer1', 'size' => 50, 'maxlength' => 200);
-$input_number = array( 'step'=>'0.01');
+$input_number = array('autocomplete'=> 'off', 'step'=>'0.01');
 $form_transfer = new HTML_QuickForm2('transfer');
  
 $fieldset_transfer = $form_transfer->addElement('fieldset')->setLabel('Transfer');
