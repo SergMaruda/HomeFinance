@@ -1,7 +1,7 @@
 <?php
 
 require_once "Table.php";
- 
+
 $db = new SQLite3("Expences.db");
 if (!$db) exit("db creation failed!"); 
 
@@ -25,7 +25,14 @@ while ($row = $result->fetchArray(SQLITE3_NUM))
 
   for($cols = 0; $cols < $cnt - 1; $cols++)
     {
-	$curr_row = $row[$cols];
+	  $curr_row = $row[$cols];
+    
+    if($cols == $cnt - 2)
+      {
+      $time = strtotime($curr_row.' UTC');
+      $curr_row = date('Y-m-d H:i:s', $time);
+      }
+    
     $table->setCellContents($row_num, $cols, $curr_row);
     }
     

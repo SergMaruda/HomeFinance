@@ -68,6 +68,8 @@ function getGUID(){
     }
 }
 
+
+
 // Instantiate the HTML_QuickForm2 object
 $form = new HTML_QuickForm2('tutorial');
 
@@ -76,23 +78,15 @@ $fieldset = $form->addElement('fieldset')->setLabel('Add new transaction');
                  
 $select_account = $fieldset->addElement('select', 'account', array('class' => 'layer1'))->setLabel('Select account:');
 
-
+$input_props = array('class' => 'layer1', 'size' => 50, 'maxlength' => 200);
+$input_number = array( 'step'=>'0.01');
 $form_transfer = new HTML_QuickForm2('transfer');
  
 $fieldset_transfer = $form_transfer->addElement('fieldset')->setLabel('Transfer');
 $transfer_account1 = $fieldset_transfer->addElement('select', 'account_from', array('class' => 'flt_left'))->setLabel('From:');
 $transfer_account2 = $fieldset_transfer->addElement('select', 'account_to', array('class' => 'flt_left'))->setLabel('To:');
-$amount_transfer = $fieldset_transfer->addElement('text', 'amount', array('class' => 'layer1', 'size' => 50, 'maxlength' => 200))->setLabel('Transfer amount:');
+$amount_transfer = $fieldset_transfer->addElement('number', 'amount', array_merge($input_number,$input_props))->setLabel('Transfer amount:');
 $fieldset_transfer->addElement('submit', null, array('value' => 'Transfer'));
-
-$form_transfer_file = new HTML_QuickForm2('transfer_file');
- 
-$fieldset_transfer_file = $form_transfer_file->addElement('fieldset')->setLabel('Transfer File');
-$file_el = $fieldset_transfer_file->addElement('file', 'fileToUp', array('class' => 'layer1', 'size' => 50, 'maxlength' => 200))->setLabel('Transfer file:');
-$fieldset_transfer_file->addElement('submit', null, array('value' => 'Transfer File'));
-
-
-
 
 $db = new SQLite3("Expences.db");
 if (!$db) exit("db creation failed!"); 
@@ -105,9 +99,8 @@ while ($row = $result->fetchArray(SQLITE3_NUM))
   $transfer_account2->addOption($row[0].' '.$row[1], $row[2]);
   } 
 
-$reason = $fieldset->addElement('text', 'reason', array('class' => 'layer1', 'size' => 50, 'maxlength' => 200))->setLabel('Reason:');
-$amount = $fieldset->addElement('text', 'amount', array('class' => 'layer1', 'size' => 50, 'maxlength' => 200))->setLabel('Expense amount:');
-
+$reason = $fieldset->addElement('text', 'reason', $input_props)->setLabel('Reason:');
+$amount = $fieldset->addElement('number', 'amount', array_merge($input_number,$input_props))->setLabel('Expense amount:');
 
 $fieldset->addElement('submit', null, array('value' => 'Add'));
 
@@ -153,54 +146,6 @@ if ($form_delete->validate())
   $db->query($sql_str);
   }
   
-  
-  if ($form_transfer_file->validate()) 
-  {
-$target_dir = "/www/Expences/uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-	echo "submit set\n";
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-}
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
-// Check file size
-if ($_FILES["fileToUp"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
-  }
-  
 // Try to validate a form
 if ($form_transfer->validate()) 
   {
@@ -213,7 +158,7 @@ if ($form_transfer->validate())
   $db->query($sql_str);
   }  
 
-echo $form.$form_delete.$form_transfer.$form_transfer_file.$form_run_wget;
+echo $form.$form_delete.$form_transfer.$form_run_wget;
 echo '</body></html>';
 
 ?>
