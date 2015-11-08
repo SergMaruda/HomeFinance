@@ -1,8 +1,4 @@
-
-//body
-//{
-//font-size:200%;
-/} 
+ 
 table, th, td 
    {
   border: 1px solid black;
@@ -20,3 +16,6 @@ tr.alt td
  color: #000000;
  background-color: #EAF2D3;
  }
+ 
+ 
+ 

@@ -54,6 +54,14 @@ echo
   width: 70px;
   }
   
+  
+  .btn
+  {
+  clear: left;
+  width: 20px;
+  height: 20px;
+  }
+  
   .row
   {
   clear:left;
@@ -102,6 +110,7 @@ float: left;
     <a class="layer1" href="/HomeFinance">View transaction</a>
     <a class="layer1" href="accounts_status_by_currency_table.php">Accounts state by currency</a>
     <a class="layer1" href="accounts_status_table.php">Accounts status</a>
+    <a class="layer1" href="expenses_status_table.php">Expenses status</a>
     <a class="layer1" href="progress.php">Progress</a>
     <a class="layer1" href="upload.html">Upload File</a>
   </div>

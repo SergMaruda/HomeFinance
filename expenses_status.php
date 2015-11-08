@@ -44,14 +44,14 @@ if($account != NULL && $currency != NULL)
   $currency_id = array('usd'=> 0, 'eur'=> 1, 'uah'=> 2);
   echo $currency;
   echo $currency_id[$currency];
-  $insert = 'INSERT INTO ACCOUNTS (CURRENCY_ID, NAME, TYPE) VALUES ('.$currency_id[$currency].', \''.$account.'\', \'B\')';
+  $insert = 'INSERT INTO ACCOUNTS (CURRENCY_ID, NAME, TYPE) VALUES ('.$currency_id[$currency].', \''.$account.'\', \'O\')';
   $result = $db->query($insert);
   }
 
-$result = $db->query('SELECT * FROM ACCOUNTS_STATE');
+$result = $db->query('SELECT * FROM EXPENSES_STATE');
 
 $table = new HTML_Table();
-$table->SetCaption("Accounts state");
+$table->SetCaption("Expenses state");
 
 $row_num = 0;
 
@@ -65,7 +65,7 @@ while ($row = $result->fetchArray(SQLITE3_NUM))
     $table->setCellContents($row_num, $cols, $curr_row);
     }
 
-  $table->setCellContents($row_num, $cols, '<a href="accounts_status_table.php?delete_account='.$row[0].'">X</a>');
+  $table->setCellContents($row_num, $cols, '<a href="expenses_status_table.php?delete_account='.$row[0].'">X</a>');
     
   if($row_num % 2 == 0)
     $table->setRowAttributes($row_num, array('class' => 'alt'));    
