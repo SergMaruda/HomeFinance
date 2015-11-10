@@ -215,8 +215,7 @@ if ($form_transfer->validate())
   
   $amount =  $_POST["amount"];
   $comment = $_POST["comment"];
-  $sql_str =          'INSERT INTO TRANSACTIONS(ACCOUNT_ID, AMOUNT, REASON) VALUES('.$acc_id1.',"-'.$amount.'", "->: '.$comment.'");';
-  $sql_str = $sql_str.'INSERT INTO TRANSACTIONS(ACCOUNT_ID, AMOUNT, REASON) VALUES('.$acc_id2.',"' .$amount.'", "->: '.$comment.'");';  
+  $sql_str = 'INSERT INTO TRANSACTIONS(ACCOUNT_ID, ACCOUNT_ID_TO, AMOUNT, REASON) VALUES('.$acc_id1.','.$acc_id2.','.((-1)*$amount).', "'.$comment.'");';
   $db->query($sql_str);
   }  
 
