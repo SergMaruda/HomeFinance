@@ -61,7 +61,11 @@ while ($row = $result->fetchArray(SQLITE3_NUM))
 
   for($cols = 0; $cols < $cnt; $cols++)
     {
-	  $curr_row = $row[$cols];
+	$curr_row = $row[$cols];
+	if($cols == 1)
+	  {
+	  $curr_row = '<a href="/HomeFinance/?account_id='.$row[0].'">'.$curr_row.'</a>';
+	  }
     $table->setCellContents($row_num, $cols, $curr_row);
     }
 

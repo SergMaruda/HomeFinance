@@ -2,10 +2,8 @@
 
 include 'header.php';
 
-
 $db = new SQLite3("Expences.db");
 if (!$db) exit("db creation failed!");
-
 
 function GetAccountsByType($db, $type)
   {
@@ -17,8 +15,7 @@ function GetAccountsByType($db, $type)
     $result_array[] = $row;
   }
             
-  $str = json_encode($result_array);
-  return $str;
+  return json_encode($result_array);
   }
 
 ?>
@@ -58,33 +55,6 @@ function myFunction() {
   else
     fiilIn("#account_to-0", transfer_accounts);
 
-    var acc_to = $("#account_to-0");
-    var acc_from = $("#account_from-0");
-
-    var selected = $("#account_from-0 option:selected").text();
-
-    var is_usd = selected.indexOf("USD") != -1;
-    var is_uah = selected.indexOf("UAH") != -1;
-    var is_eur = selected.indexOf("EUR") != -1;
-
-    var currency = selected.substr(selected.length - 3);
-
-    var input = [];
-
-    $("#account_to-0 option").each(function (e) {
-        var text = $(this).text();
-        var has_curr = text.indexOf(currency) != -1;
-
-        if (has_curr) {
-           input.push([$(this).val(), text]);
-        }
-    });
-
-   acc_to.empty();
-  for(var i = 0; i < input.length; ++i)
-            acc_to.append($('<option></option>').val(input[i][0]).html(input[i][1]));
-
-
 }
 
 function TransactionTypeChnaged() 
@@ -96,12 +66,22 @@ function TransactionTypeChnaged()
     fiilIn("#account_from-0", transfer_accounts);
   else
     fiilIn("#account_from-0", transfer_accounts);
-myFunction();
+   myFunction();
   }
 
     $(document).ready(function () {
+     var length = $('#account_from-0').children('option').length;
+     if(length == 0)  
+       TransactionTypeChnaged();
 
-TransactionTypeChnaged();
+var id_from = "<?php echo $_POST['account_from']; ?>";
+var id_to = "<?php echo $_POST['account_to']; ?>";
+
+if(id_from != "")
+  $("#account_from-0").val(id_from);
+
+if(id_to != "")
+  $("#account_to-0").val(id_to);
 
         $("#account_from-0").change(function (e) {
             myFunction();
@@ -140,9 +120,9 @@ function getGUID(){
     }
 }
 
-
 $input_props = array('class' => 'layer1', 'size' => 50, 'maxlength' => 200);
 $input_number = array('autocomplete'=> 'off', 'step'=>'0.01');
+$input_number2 = array('autocomplete'=> 'off', 'step'=>'0.0001');
 
 $form_transfer = new HTML_QuickForm2('transfer');
 
@@ -157,17 +137,12 @@ $transaction_type->addOption("Доход",   'income');
 $transfer_account1 = $fieldset_transfer->addElement('select', 'account_from', array('class' => 'flt_left'))->setLabel('From:');
 $transfer_account2 = $fieldset_transfer->addElement('select', 'account_to', array('class' => 'flt_left'))->setLabel('To:');
 
-$transfer_comment = $fieldset_transfer->addElement('text', 'comment', array_merge($input_number,$input_props))->setLabel('Comment:');
+$transfer_comment = $fieldset_transfer->addElement('text', 'comment', array_merge($input_props))->setLabel('Comment:');
 $amount_transfer = $fieldset_transfer->addElement('number', 'amount', array_merge($input_number,$input_props))->setLabel('Amount:');
+$exchange_rate = $fieldset_transfer->addElement('number', 'exchange_rate', array_merge($input_number2,$input_props))->setLabel('Exchange rate:');
+$exchange_rate->setValue('1.0');
+
 $fieldset_transfer->addElement('submit', null, array('value' => 'Transfer'));
-
-$result = $db->query('SELECT ACCOUNTS.NAME, CURRENCIES.NAME, ACCOUNTS.ID FROM ACCOUNTS, CURRENCIES WHERE ACCOUNTS.CURRENCY_ID == CURRENCIES.ID');
-
-while ($row = $result->fetchArray(SQLITE3_NUM)) 
-  {
-  //$transfer_account1->addOption($row[0].' '.$row[1], $row[2]);
-  //$transfer_account2->addOption($row[0].' '.$row[1], $row[2]);
-  } 
 
 $form_delete = new HTML_QuickForm2('form_delete_transaction');
 $fieldset_form_delete = $form_delete->addElement('fieldset')->setLabel('Enter transaction ID to delete');
@@ -214,8 +189,9 @@ if ($form_transfer->validate())
   $acc_id2 = $_POST["account_to"];
   
   $amount =  $_POST["amount"];
+  $ex_rate =  $_POST["exchange_rate"];
   $comment = $_POST["comment"];
-  $sql_str = 'INSERT INTO TRANSACTIONS(ACCOUNT_ID, ACCOUNT_ID_TO, AMOUNT, REASON) VALUES('.$acc_id1.','.$acc_id2.','.((-1)*$amount).', "'.$comment.'");';
+  $sql_str = 'INSERT INTO TRANSACTIONS(ACCOUNT_ID, ACCOUNT_ID_TO, EXCHANGE_RATE, AMOUNT , REASON) VALUES('.$acc_id1.','.$acc_id2.','.$ex_rate.','.((-1)*$amount).', "'.$comment.'");';
   $db->query($sql_str);
   }  
 
